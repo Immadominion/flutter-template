@@ -16,5 +16,9 @@
   "keywords": [
     "celo-composer",
     "celo"
+  ],
+  "workspaces": [
+    "packages/*",
+    "hardhat/*"
   ]
 }
