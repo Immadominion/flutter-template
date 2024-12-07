@@ -28,7 +28,7 @@ cd flutter_template
 ### 2\. Install Dependencies
 
 ```bash
-cd packages/flutter
+# cd packages/flutter
 
 flutter pub get
 ```
