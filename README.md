@@ -4,17 +4,17 @@ A Flutter application template that integrates with Web3 functionality using ReO
 
 ## Features
 
-*   Material Design 3 implementation
-*   Web3 wallet integration
-*   Provider state management
-*   Cross-platform support (iOS, Android, Web)
+- Material Design 3 implementation
+- Web3 wallet integration
+- Provider state management
+- Cross-platform support (iOS, Android, Web)
 
 ## Prerequisites
 
-*   Flutter SDK (^3.5.3)
-*   Dart SDK (^3.5.3)
-*   Git
-*   IDE (VS Code or Android Studio recommended)
+- Flutter SDK (^3.5.3)
+- Dart SDK (^3.5.3)
+- Git
+- IDE (VS Code or Android Studio recommended)
 
 ## Installation
 
@@ -55,9 +55,9 @@ lib/
 
 ## Dependencies
 
-*   `provider: ^6.1.2` - State management solution
-*   `reown_appkit: ^1.2.0` - Web3 integration toolkit
-*   `cupertino_icons: ^1.0.8` - iOS-style icons
+- `provider: ^6.1.2` - State management solution
+- `reown_appkit: ^1.2.0` - Web3 integration toolkit
+- `cupertino_icons: ^1.0.8` - iOS-style icons
 
 ## Development
 
@@ -90,15 +90,15 @@ flutter test
 
 ### iOS
 
-*   Xcode 14 or later
-*   iOS 11.0 or later
-*   CocoaPods
+- Xcode 14 or later
+- iOS 11.0 or later
+- CocoaPods
 
 ### Android
 
-*   Android Studio
-*   Android SDK
-*   Android 5.0 (API 21) or later
+- Android Studio
+- Android SDK
+- Android 5.0 (API 21) or later
 
 ## Contributing
 
@@ -110,6 +110,6 @@ flutter test
 
 ## Resources
 
-*   [Flutter Documentation](https://docs.flutter.dev)
-*   [Flutter Codelab](https://docs.flutter.dev/get-started/codelab)
-*   [Flutter Cookbook](https://docs.flutter.dev/cookbook)
+- [Flutter Documentation](https://docs.flutter.dev)
+- [Flutter Codelab](https://docs.flutter.dev/get-started/codelab)
+- [Flutter Cookbook](https://docs.flutter.dev/cookbook)
