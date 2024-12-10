@@ -1,43 +1,47 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
+node_modules
+.env
+packages/*/.env
 
-# IntelliJ related
+# IntelliJ project files
 *.iml
 *.ipr
 *.iws
-.idea/
+.idea
+
+*.gitkeep
+
+# eclipse project file
+.settings/
+.classpath
+.project
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+# OS
+.DS_Store
 
-# Symbolication related
-app.*.symbols
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
 
-# Obfuscation related
-app.*.map.json
+PROPOSAL.md
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# Ignore lock files
+yarn.lock
+package-lock.json
+packages/*/yarn.lock
+packages/*/package-lock.json

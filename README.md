@@ -20,20 +20,22 @@ A Flutter application template that integrates with Web3 functionality using ReO
 
 ### 1\. Clone the Repository
 
-```
+```bash
 git clone https://github.com/yourusername/flutter_template.git
 cd flutter_template
 ```
 
 ### 2\. Install Dependencies
 
-```
+```bash
+# cd packages/flutter
+
 flutter pub get
 ```
 
 ### 3\. Run the Application
 
-```
+```bash
 flutter run
 ```
 
@@ -41,7 +43,7 @@ flutter run
 
 ## Project Structure
 
-```
+```bash
 lib/
 ├── main.dart
 ├── providers/
@@ -63,13 +65,13 @@ lib/
 
 ### Running in Debug Mode
 
-```
+```bash
 flutter run
 ```
 
 ### Building for Production
 
-```
+```bash
 # For Android
 flutter build apk
 
@@ -82,7 +84,7 @@ flutter build web
 
 ### Running Tests
 
-```
+```bash
 flutter test
 ```
 
