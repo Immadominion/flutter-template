@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reown_appkit/reown_appkit.dart';
+
 import '../providers/app_provider.dart';
-import '../widgets/header.dart';
 import '../widgets/footer.dart';
+import '../widgets/header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,13 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late Future<void> _initializationFuture;
+
   @override
   void initState() {
     super.initState();
-    // Use context.read to access the provider
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppProvider>().initializeAppKitModal(context);
-    });
+    _initializationFuture = Provider.of<AppProvider>(context, listen: false)
+        .initializeAppKitModal(context);
   }
 
   @override
@@ -30,13 +33,69 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: Center(
-              child: Consumer<AppProvider>(
-                builder: (context, appProvider, _) {
-                  if (appProvider.appKitModal != null) {
-                    return AppKitModalAccountButton(
-                        appKitModal: appProvider.appKitModal!);
+              child: FutureBuilder<void>(
+                future: _initializationFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
                   } else {
-                    return CircularProgressIndicator();
+                    return Consumer<AppProvider>(
+                      builder: (context, appProvider, _) {
+                        if (appProvider.isConnected) {
+                          log('Wallet connected!');
+                          log('Selected Chain: ${appProvider.appKitModal!.selectedChain}');
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text(
+                                'Wallet connected!',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              AppKitModalAccountButton(
+                                  appKitModal: appProvider.appKitModal!),
+                              ElevatedButton(
+                                onPressed: () {
+                                  appProvider.appKitModal!.disconnect();
+                                },
+                                child: const Text('Disconnect Wallet'),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      'User Address: ${appProvider.userAddress}'),
+                                  Text('User Balance: ${appProvider.balance}'),
+                                  Text(
+                                      'Current connected chain: ${appProvider.currentChain}'),
+                                ],
+                              )
+                            ],
+                          );
+                        } else {
+                          log('Wallet has not been connected.');
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text(
+                                'Wallet not connected!',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              AppKitModalNetworkSelectButton(
+                                appKit: appProvider.appKitModal!,
+                              ),
+                            ],
+                          );
+                        }
+                      },
+                    );
                   }
                 },
               ),

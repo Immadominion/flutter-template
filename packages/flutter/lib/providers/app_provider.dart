@@ -5,39 +5,59 @@ class AppProvider with ChangeNotifier {
   ReownAppKitModal? _appKitModal;
   bool _isConnected = false;
   String _userAddress = '';
+  String _currentChain = '';
+  String _balance = '';
 
   ReownAppKitModal? get appKitModal => _appKitModal;
   bool get isConnected => _isConnected;
   String get userAddress => _userAddress;
+  String get currentChain => _currentChain;
+  String get balance => _balance; 
 
   Future<void> initializeAppKitModal(BuildContext context) async {
+    ReownAppKitModalNetworks.removeSupportedNetworks('solana');
+
     _appKitModal = ReownAppKitModal(
       context: context,
-      projectId: '044601f65212332475a09bc14ceb3c34',
+      projectId:
+          'YOUR-PROJECT-ID', //TODO: Replace with your Project ID
       metadata: const PairingMetadata(
         name: 'Celo Composer',
         description: 'Memecoin trading made easy',
         url: 'https://celo-composer.com/',
         icons: ['assets/images/logo.png'],
       ),
+      featuresConfig: FeaturesConfig(
+        email: true,
+        socials: [AppKitSocialOption.X, AppKitSocialOption.Farcaster],
+        showMainWallets: true, 
+      ),
     );
 
     await _appKitModal?.init();
 
-    // Add listener
     _appKitModal?.addListener(_updateState);
     _updateState();
   }
 
-  void _updateState() {
-    final wasConnected = _isConnected;
+  void _updateState() async {
     _isConnected = _appKitModal?.isConnected ?? false;
-    _userAddress = _appKitModal?.session?.getAddress('') ?? '';
 
-    // Only notify listeners if the connection state has changed
-    if (wasConnected != _isConnected) {
-      notifyListeners();
+    if (_isConnected) {
+      // Get address using the selected chain's namespace
+      final namespace = ReownAppKitModalNetworks.getNamespaceForChainId(
+          _appKitModal!.selectedChain?.chainId ?? "");
+
+      _userAddress = _appKitModal?.session?.getAddress(namespace) ?? '';
+      _currentChain = _appKitModal?.selectedChain?.name ?? 'Unknown';
+      _balance =
+          _appKitModal?.balanceNotifier.value ?? '0';
+    } else {
+      _userAddress = ''; 
+      _currentChain = ''; 
+      _balance = '0';
     }
+    notifyListeners();
   }
 
   @override
